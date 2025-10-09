@@ -1,224 +1,228 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  BookOpen,
-  Box,
-  Cpu,
-  Shuffle,
-  Wrench,
   Play,
-  ArrowRight,
-  FileCode2,
-  Database,
-  Cloud,
   Scissors,
-  CheckCircle,
+  Wrench,
+  Box,
+  Database,
+  Layers,
+  Cloud,
+  Repeat,
 } from "lucide-react";
 
-export default function SciunitTabs() {
-  return (
-    <section
-      id="tabs"
-      className="w-full max-w-6xl mx-auto px-6 py-16 scroll-mt-24"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-mizzouBlack mb-8">
-          Learn <span className="text-mizzouGold">Sciunit</span> in 5 Tabs
-        </h2>
-
-        <Tabs defaultValue="background" className="w-full">
-          {/* Tab Headers */}
-          <TabsList className="flex flex-wrap justify-center bg-white border border-gray-200 rounded-lg p-1 mb-8">
-            <TabsTrigger value="background">Background</TabsTrigger>
-            <TabsTrigger value="what">What</TabsTrigger>
-            <TabsTrigger value="how">How</TabsTrigger>
-            <TabsTrigger value="modes">Modes</TabsTrigger>
-            <TabsTrigger value="hello">Hello</TabsTrigger>
-          </TabsList>
-
-          {/* Tab Contents */}
-          {/* Background */}
-          <TabsContent value="background">
-            <Card className="bg-white shadow-sm">
-              <CardHeader>
-                <CardTitle>Why reproducibility is hard</CardTitle>
-                <CardDescription>
-                  Zipping code and data isn’t enough — environments drift.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-gray-700 space-y-2">
-                <ul className="list-disc pl-5">
-                  <li>Dependencies change or disappear over time.</li>
-                  <li>Colleagues can’t easily rerun or tweak code.</li>
-                  <li>Data provenance often gets lost or fragmented.</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* What */}
-          <TabsContent value="what">
-            <div className="grid gap-4 md:grid-cols-3">
-              <FeatureCard
-                icon={<Box className="h-5 w-5" />}
-                title="Application Virtualization"
-                desc="Sciunit captures binaries, libraries, scripts, and optional data — exactly as they ran."
-              />
-              <FeatureCard
-                icon={<FileCode2 className="h-5 w-5" />}
-                title="Provenance Graph"
-                desc="Builds a process↔file lineage to let you rerun, modify, or slice experiments intelligently."
-              />
-              <FeatureCard
-                icon={<Database className="h-5 w-5" />}
-                title="Deduplicated Versions"
-                desc="Stores many versions efficiently by chunking shared data blocks."
-              />
-            </div>
-          </TabsContent>
-
-          {/* How */}
-          <TabsContent value="how">
-            <div className="grid gap-4 md:grid-cols-3">
-              <FeatureCard
-                icon={<Cpu className="h-5 w-5" />}
-                title="Stable Runtime"
-                desc="Captured sandbox runs identically anywhere — no re-installs."
-              />
-              <FeatureCard
-                icon={<Shuffle className="h-5 w-5" />}
-                title="Repeat Any Way"
-                desc="Exact repeat, slice partial runs, or modify steps with provenance support."
-              />
-              <FeatureCard
-                icon={<Cloud className="h-5 w-5" />}
-                title="Local or Remote"
-                desc="Run locally or remotely with consistent environments and results."
-              />
-            </div>
-          </TabsContent>
-
-          {/* Modes */}
-          <TabsContent value="modes">
-            <div className="grid gap-4 md:grid-cols-3">
-              <ModeCard
-                icon={<Play className="h-5 w-5" />}
-                title="As-Is Repeat"
-                points={[
-                  "Reproduce the original run exactly",
-                  "Great for audits & papers",
-                  "Optional input freezing",
-                ]}
-              />
-              <ModeCard
-                icon={<Scissors className="h-5 w-5" />}
-                title="Partial Repeat"
-                points={[
-                  "Choose specific steps to rerun",
-                  "Auto-resolves dependencies",
-                  "Smaller container, faster share",
-                ]}
-              />
-              <ModeCard
-                icon={<Wrench className="h-5 w-5" />}
-                title="Modify & Rerun"
-                points={[
-                  "Edit configs or scripts safely",
-                  "Compare outputs across versions",
-                  "Share deduped results easily",
-                ]}
-              />
-            </div>
-          </TabsContent>
-
-          {/* Hello Example */}
-          <TabsContent value="hello">
-            <Card className="bg-white">
-              <CardHeader>
-                <CardTitle>“Hello, Sciunit” Example</CardTitle>
-                <CardDescription>Package & Repeat in under a minute</CardDescription>
-              </CardHeader>
-              <CardContent className="text-gray-700 text-sm space-y-2">
-                <p><strong>hello.py</strong></p>
-                <pre className="bg-gray-50 p-3 rounded-md text-left">
-                  print("hello sciunit")
-                </pre>
-                <p><strong>Step 1:</strong> Package the run:</p>
-                <CodeLine>scu package --cmd "python hello.py" --name hello-sciunit</CodeLine>
-                <p><strong>Step 2:</strong> Repeat it anywhere:</p>
-                <CodeLine>scu repeat hello-sciunit</CodeLine>
-                <p className="text-xs text-gray-500">
-                  Tip: add <code>--include data/*.csv</code> to freeze inputs.
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </motion.div>
-    </section>
-  );
-}
-
-/* === Helper Subcomponents === */
-
-function FeatureCard({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <Card className="p-4 border border-gray-200 hover:shadow-md transition">
-      <div className="flex items-start gap-3">
-        <div className="text-mizzouGold">{icon}</div>
-        <div>
-          <p className="font-semibold">{title}</p>
-          <p className="text-sm text-gray-700">{desc}</p>
+const tabData = [
+  {
+    id: "background",
+    title: "Background & Pain Points",
+    content: (
+      <div className="space-y-1">
+        <h3 className="text-lg font-semibold text-gray-900">
+          Reusable research objects, without the pain
+        </h3>
+        <p className="text-gray-600 text-sm mb-3">
+          Why zipping code + data isn’t enough
+        </p>
+        <ul className="list-disc pl-6 text-gray-700 text-sm leading-relaxed">
+          <li>
+            Bundles get stale as data sources change; recreating the environment
+            is error-prone.
+          </li>
+          <li>
+            Colleagues can’t easily re-run, slice, or tweak steps without
+            dependency hunts.
+          </li>
+          <li>
+            Provenance (what used what, when) is either missing or too detailed
+            to be useful.
+          </li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    id: "what",
+    title: "What is Sciunit?",
+    content: (
+      <div className="grid md:grid-cols-3 gap-3">
+        <div className="border rounded-lg p-4 bg-white">
+          <Box className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Application Virtualization
+          </h4>
+          <p className="text-gray-700 text-sm mt-1 leading-snug">
+            Intercept system calls during a run to capture binaries, libraries,
+            scripts, env vars, and optional data.
+          </p>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Database className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Provenance Graph
+          </h4>
+          <p className="text-gray-700 text-sm mt-1 leading-snug">
+            Process↔file lineage is recorded and summarized so humans can
+            navigate and pick slices.
+          </p>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Layers className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Deduplicated Versions
+          </h4>
+          <p className="text-gray-700 text-sm mt-1 leading-snug">
+            Store many versions cheaply via content-defined chunking (shared
+            blocks across runs).
+          </p>
         </div>
       </div>
-    </Card>
-  );
-}
-
-function ModeCard({
-  icon,
-  title,
-  points,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  points: string[];
-}) {
-  return (
-    <Card className="p-4 border border-gray-200 hover:shadow-md transition">
-      <div className="flex items-center gap-2 mb-2 text-mizzouGold">
-        {icon}
-        <p className="font-semibold text-black">{title}</p>
+    ),
+  },
+  {
+    id: "how",
+    title: "How it Solves It",
+    content: (
+      <div className="grid md:grid-cols-3 gap-3">
+        <div className="border rounded-lg p-4 bg-white">
+          <Wrench className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Stable Runtime
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Runs inside a captured sandbox—same binaries, libs, env—no manual
+            re-installs.
+          </p>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Repeat className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Repeat Any Way
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Exact repeat, slice part, or modify and rerun—guided by provenance.
+          </p>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Cloud className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Local & Remote
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Run on your laptop or send to a compatible remote server; results
+            come back to you.
+          </p>
+        </div>
       </div>
-      <ul className="list-disc pl-5 text-sm text-gray-700">
-        {points.map((pt, i) => (
-          <li key={i}>{pt}</li>
-        ))}
-      </ul>
-    </Card>
-  );
-}
+    ),
+  },
+  {
+    id: "modes",
+    title: "Three Modes",
+    content: (
+      <div className="grid md:grid-cols-3 gap-3">
+        <div className="border rounded-lg p-4 bg-white">
+          <Play className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            As-is (Exact Repeat)
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Reproduce the original run exactly — great for audits & papers.
+          </p>
+          <ul className="list-disc pl-4 mt-2 text-sm text-gray-700 leading-snug">
+            <li>Reproduce original run exactly</li>
+            <li>Optional: freeze inputs</li>
+          </ul>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Scissors className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Smaller Part (Partial Repeat)
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Pick one or more steps to rerun; auto-includes required ancestors.
+          </p>
+        </div>
+        <div className="border rounded-lg p-4 bg-white">
+          <Wrench className="w-5 h-5 mb-2 text-gray-800" />
+          <h4 className="font-semibold text-gray-900 text-sm">
+            Modify & Rerun
+          </h4>
+          <p className="text-gray-700 text-sm leading-snug">
+            Edit configs and re-execute; compare outputs across versions.
+          </p>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "hello",
+    title: "Hello World Example",
+    content: (
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="border rounded-xl p-4 bg-white shadow-sm">
+          <h4 className="font-mono text-sm mb-2">hello.py</h4>
+          <pre className="bg-gray-100 rounded-lg p-3 text-sm overflow-x-auto">
+{`print("hello sciunit")`}
+          </pre>
+        </div>
+        <div className="space-y-3 text-sm text-gray-800">
+          <h4 className="font-semibold">Run your script under Sciunit:</h4>
+          <pre className="bg-gray-100 p-2 rounded overflow-x-auto">
+{`scu package --cmd "python hello.py" --name hello-sciunit`}
+          </pre>
+          <h4 className="font-semibold mt-3">Repeat it anywhere:</h4>
+          <pre className="bg-gray-100 p-2 rounded overflow-x-auto">
+{`scu repeat hello-sciunit`}
+          </pre>
+        </div>
+      </div>
+    ),
+  },
+];
 
-function CodeLine({ children }: { children: React.ReactNode }) {
+export default function SciunitTabs() {
+  const [activeTab, setActiveTab] = useState("background");
+
   return (
-    <code className="block bg-gray-100 rounded-md px-3 py-1 text-left text-sm font-mono">
-      {children}
-    </code>
+    <section
+      id="sciunit-tabs"
+      className="w-full max-w-6xl mx-auto bg-gray-50 rounded-2xl p-6 mt-6 shadow-sm"
+    >
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="flex flex-wrap justify-center bg-white border rounded-lg p-1 shadow-sm w-full">
+          {tabData.map((tab) => (
+            <TabsTrigger
+              key={tab.id}
+              value={tab.id}
+              className={cn(
+                "px-4 py-2 text-sm font-medium rounded-md transition-all",
+                "data-[state=active]:bg-[#F1B82D] data-[state=active]:text-black data-[state=active]:shadow-sm"
+              )}
+            >
+              {tab.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        <div className="mt-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="border rounded-2xl bg-white px-5 pt-4 pb-0 min-h-[200px]"
+            >
+              {tabData.find((t) => t.id === activeTab)?.content}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </Tabs>
+    </section>
   );
 }

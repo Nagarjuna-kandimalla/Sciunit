@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import TrackSelector from "@/components/TrackSelector";
 import SciunitIntro from "@/components/SciunitIntro";
 import SciunitTabs from "@/components/SciunitTabs";
-import QuickstartSection from "@/components/QuickstartSection";
+//import QuickstartSection from "@/components/QuickstartSection";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
         <TrackSelector />
         <SciunitIntro />
         <SciunitTabs />
-        <QuickstartSection />
+        {/* <QuickstartSection /> */}
       </main>
 
       <Footer />
