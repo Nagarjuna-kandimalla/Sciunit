@@ -1,4 +1,17 @@
+"use client";
+
+import { useState } from "react";
+import { Clipboard, Check } from "lucide-react";
+
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("tanu@missouri.edu");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <footer className="bg-gray-50 border-t border-gray-200 mt-16">
       {/* --- Top Section: Visual Guide + Links + Contact --- */}
@@ -22,18 +35,23 @@ export default function Footer() {
           </h4>
           <ul className="space-y-1 text-sm">
             <li>
-              <a href="#sciunit" className="hover:text-black">
-                Why Sciunit
+              <a
+                href="https://arxiv.org/pdf/1707.05731"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-black"
+              >
+                Sciunit Paper
               </a>
             </li>
             <li>
-              <a href="#how" className="hover:text-black">
-                How it Works
-              </a>
-            </li>
-            <li>
-              <a href="#quickstart" className="hover:text-black">
-                Try the Quickstart
+              <a
+                href="https://dice.cs.depaul.edu/pdfs/pubs/C31.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-black"
+              >
+                Flinc Paper
               </a>
             </li>
           </ul>
@@ -42,23 +60,20 @@ export default function Footer() {
         {/* Right Column */}
         <div>
           <h4 className="text-sm font-semibold text-gray-900 mb-2">Contact</h4>
-          <p className="text-sm">
-            <a
-              href="mailto:prof@example.edu"
-              className="hover:text-black underline-offset-2"
+          <div className="flex items-center gap-2 text-sm">
+            <span className="select-all">tanu@missouri.edu</span>
+            <button
+              onClick={handleCopy}
+              className="text-gray-600 hover:text-black transition-colors"
+              aria-label="Copy email address"
             >
-              prof@example.edu
-            </a>{" "}
-            •{" "}
-            <a
-              href="https://radiantlab.edu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-black underline-offset-2"
-            >
-              radiantlab.edu
-            </a>
-          </p>
+              {copied ? (
+                <Check className="w-4 h-4 text-green-600" />
+              ) : (
+                <Clipboard className="w-4 h-4" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 

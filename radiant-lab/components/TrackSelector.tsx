@@ -61,7 +61,7 @@ export default function TrackSelector() {
                 FLINC
               </h3>
               <p className="text-sm text-black/60">
-                Jupyter Audit/Repeat kernels
+                Notebook Audit/Repeat kernels
               </p>
             </div>
           </div>

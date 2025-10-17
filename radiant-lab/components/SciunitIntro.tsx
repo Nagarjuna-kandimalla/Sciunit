@@ -39,23 +39,22 @@ export default function SciunitHero() {
           </h2>
 
           <p className="mt-4 max-w-xl text-black/70">
-            Sciunit packages your run-time <em>as it runs</em> — capturing code,
-            libraries, environment, and (optionally) data — so anyone can repeat
-            it exactly, rerun a slice, or modify & re-execute.
+            Sciunit turns your research code, data, and environment into instantly 
+            recomputable containers using application virtualization. Unlike traditional 
+            research objects that only aggregate files, Sciunits enable exact, partial, and 
+            modified repeatability — all with minimal storage and setup.
           </p>
 
           {/* === Bullets === */}
           <div className="mt-5 flex flex-wrap gap-4 text-sm text-black/70">
             <span className="inline-flex items-center gap-1">
-              <CheckCircle className="h-3.5 w-3.5" /> Exact / Partial / Modified
-              repeats
+              <CheckCircle className="h-3.5 w-3.5" /> Application virtualization for container creation
             </span>
             <span className="inline-flex items-center gap-1">
-              <CheckCircle className="h-3.5 w-3.5" /> Content-deduplicated
-              versions
+              <CheckCircle className="h-3.5 w-3.5" /> Versioned storage via deduplication
             </span>
             <span className="inline-flex items-center gap-1">
-              <CheckCircle className="h-3.5 w-3.5" /> Local & Remote execution
+              <CheckCircle className="h-3.5 w-3.5" /> Provenance-guided reuse and visualization
             </span>
           </div>
         </div>
