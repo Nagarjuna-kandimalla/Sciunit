@@ -155,7 +155,7 @@ const tabData = [
             <Play className="h-5 w-5 text-black/70" />
             <h4 className="font-semibold text-black/80">As-is (Exact Repeat)</h4>
           </div>
-          <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p>
+          {/* <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p> */}
           <ul className="list-disc pl-5 text-sm text-black/70 leading-snug">
             <li>Reproduce the original execution faithfully.</li>
             <li>Useful for audits, reviews, and archival reruns.</li>
@@ -169,7 +169,8 @@ const tabData = [
               Smaller Part (Partial Repeat)
             </h4>
           </div>
-          <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p>
+          {/* Commented out */}
+          {/* <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p> */}
           <p className="text-sm text-black/70">
             Select a subset of steps derived from the provenance graph. Sciunit
             auto-includes the necessary ancestors and files.
@@ -181,7 +182,8 @@ const tabData = [
             <Wrench className="h-5 w-5 text-black/70" />
             <h4 className="font-semibold text-black/80">Modify & Rerun</h4>
           </div>
-          <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p>
+          {/* Commented out */}
+          {/* <p className="text-xs text-black/60 mb-1">Learn by doing in the Try-It lab</p> */}
           <p className="text-sm text-black/70">
             Change scripts/configuration and re-execute in the captured runtime.
             Results are tracked as a new, deduplicated version.

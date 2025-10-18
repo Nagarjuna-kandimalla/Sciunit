@@ -16,7 +16,7 @@ export default function SciunitHero() {
             borderColor: "rgba(0,0,0,0.1)",
           }}
         >
-          Sciunit • Executable Research Objects
+          Sciunit CLI • Executable Research Objects
         </Badge>
 
         <Button
@@ -39,7 +39,7 @@ export default function SciunitHero() {
           </h2>
 
           <p className="mt-4 max-w-xl text-black/70">
-            Sciunit turns your research code, data, and environment into instantly 
+            Sciunit CLI turns your research code, data, and environment into instantly 
             recomputable containers using application virtualization. Unlike traditional 
             research objects that only aggregate files, Sciunits enable exact, partial, and 
             modified repeatability — all with minimal storage and setup.
