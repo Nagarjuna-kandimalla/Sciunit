@@ -28,6 +28,7 @@ export default function SciunitHero() {
           </Badge>
           
           <Button
+            asChild 
             className="gap-2 px-4 py-2 text-sm font-medium bg-[#F1B82D] text-black hover:bg-[#f5c643] rounded-md shadow-none"
           >
             <a
@@ -35,7 +36,8 @@ export default function SciunitHero() {
               target="_blank"
               rel="noopener noreferrer"
             >
-            <Rocket className="h-4 w-4" /> Quickstart
+            <Rocket className="h-4 w-4" /> 
+            <span>Quickstart</span>
             </a>  
           </Button>
         </div>
