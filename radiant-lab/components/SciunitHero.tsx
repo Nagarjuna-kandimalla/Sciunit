@@ -26,12 +26,18 @@ export default function SciunitHero() {
           >
             Sciunit CLI • Executable Research Objects
           </Badge>
-
+          
           <Button
             className="gap-2 px-4 py-2 text-sm font-medium bg-[#F1B82D] text-black hover:bg-[#f5c643] rounded-md shadow-none"
           >
-            <Rocket className="h-4 w-4" />
-            Try Quickstart
+            <a
+              href="https://jupyter.chameleoncloud.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Rocket className="h-4 w-4" />
+              Quickstart
+            </a>  
           </Button>
         </div>
 
